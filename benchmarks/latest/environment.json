@@ -1,0 +1,78 @@
+{
+  "timestamp_utc": "2026-10-01T14:01:20.987200+00:00",
+  "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+  "architecture": "arm64",
+  "logical_cpus": 14,
+  "graalvm": "java version \"25.0.4.1.1\" 2026-08-18 LTS\nJava(TM) SE Runtime Environment Oracle GraalVM 25.4.4.1.1+1.1 (build 25.0.4.1.1+1-LTS-jvmci-25.4-b23)\nJava HotSpot(TM) 64-Bit Server VM Oracle GraalVM 25.4.4.1.1+1.1 (build 25.0.4.1.1+1-LTS-jvmci-25.4-b23, mixed mode, sharing)",
+  "regular_jdk": "openjdk version \"25.0.1\" 2025-10-21\nOpenJDK Runtime Environment (build 25.0.1+8-27)\nOpenJDK 64-Bit Server VM (build 25.0.1+8-27, mixed mode, sharing)",
+  "native_image": "native-image 25.0.4.1.1 2026-08-18\nGraalVM Runtime Environment Oracle GraalVM 25.4.4.1.1+1.1 (build 25.0.4.1.1+1-LTS-jvmci-25.4-b23)\nSubstrate VM Oracle GraalVM 25.4.4.1.1+1.1 (build 25.0.4.1.1+1-LTS, serial gc, compressed references)",
+  "hyperfine": "hyperfine 1.19.0",
+  "warmup_runs_per_command": 5,
+  "measured_runs_per_command": 50,
+  "commands": {
+    "HelloWorld / Crema": [
+      "/Users/thomas/crema-source-launcher/build/crema-source-launcher",
+      "-Djava.home=/Users/thomas/.sdkman/candidates/java/25.4.4+1-graal",
+      "/Users/thomas/crema-source-launcher/examples/HelloWorld.java"
+    ],
+    "HelloWorld / OpenJDK": [
+      "/Users/thomas/.sdkman/candidates/java/25.0.1-open/bin/java",
+      "/Users/thomas/crema-source-launcher/examples/HelloWorld.java"
+    ],
+    "ListDirectory / Crema": [
+      "/Users/thomas/crema-source-launcher/build/crema-source-launcher",
+      "-Djava.home=/Users/thomas/.sdkman/candidates/java/25.4.4+1-graal",
+      "/Users/thomas/crema-source-launcher/examples/ListDirectory.java",
+      "/Users/thomas/crema-source-launcher/build/benchmark-inputs/run-ou6maani/directory"
+    ],
+    "ListDirectory / OpenJDK": [
+      "/Users/thomas/.sdkman/candidates/java/25.0.1-open/bin/java",
+      "/Users/thomas/crema-source-launcher/examples/ListDirectory.java",
+      "/Users/thomas/crema-source-launcher/build/benchmark-inputs/run-ou6maani/directory"
+    ],
+    "WordCount / Crema": [
+      "/Users/thomas/crema-source-launcher/build/crema-source-launcher",
+      "-Djava.home=/Users/thomas/.sdkman/candidates/java/25.4.4+1-graal",
+      "/Users/thomas/crema-source-launcher/examples/WordCount.java",
+      "/Users/thomas/crema-source-launcher/build/benchmark-inputs/run-ou6maani/text.txt"
+    ],
+    "WordCount / OpenJDK": [
+      "/Users/thomas/.sdkman/candidates/java/25.0.1-open/bin/java",
+      "/Users/thomas/crema-source-launcher/examples/WordCount.java",
+      "/Users/thomas/crema-source-launcher/build/benchmark-inputs/run-ou6maani/text.txt"
+    ],
+    "FindFiles / Crema": [
+      "/Users/thomas/crema-source-launcher/build/crema-source-launcher",
+      "-Djava.home=/Users/thomas/.sdkman/candidates/java/25.4.4+1-graal",
+      "/Users/thomas/crema-source-launcher/examples/FindFiles.java",
+      "*.txt",
+      "/Users/thomas/crema-source-launcher/build/benchmark-inputs/run-ou6maani/directory"
+    ],
+    "FindFiles / OpenJDK": [
+      "/Users/thomas/.sdkman/candidates/java/25.0.1-open/bin/java",
+      "/Users/thomas/crema-source-launcher/examples/FindFiles.java",
+      "*.txt",
+      "/Users/thomas/crema-source-launcher/build/benchmark-inputs/run-ou6maani/directory"
+    ],
+    "Sha256 / Crema": [
+      "/Users/thomas/crema-source-launcher/build/crema-source-launcher",
+      "-Djava.home=/Users/thomas/.sdkman/candidates/java/25.4.4+1-graal",
+      "/Users/thomas/crema-source-launcher/examples/Sha256.java",
+      "/Users/thomas/crema-source-launcher/build/benchmark-inputs/run-ou6maani/data.bin"
+    ],
+    "Sha256 / OpenJDK": [
+      "/Users/thomas/.sdkman/candidates/java/25.0.1-open/bin/java",
+      "/Users/thomas/crema-source-launcher/examples/Sha256.java",
+      "/Users/thomas/crema-source-launcher/build/benchmark-inputs/run-ou6maani/data.bin"
+    ]
+  },
+  "workloads": {
+    "HelloWorld": "greeting",
+    "ListDirectory": "100 entries",
+    "WordCount": "1,000 lines / 10,000 words / 49,000 bytes",
+    "FindFiles": "190 files / 11 directories / 95 matches",
+    "Sha256": "1 MiB"
+  },
+  "binary_bytes": 226726024,
+  "method": "Fresh processes, warm filesystem caches, no shell; wall time through process exit, including compilation and execution."
+}

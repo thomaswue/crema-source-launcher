@@ -1,0 +1,12 @@
+[
+  { "name": "javax.tools.JavaCompiler$CompilationTask" },
+  {
+    "name": "com.sun.tools.javac.api.JavacTrees",
+    "methods": [
+      {
+        "name": "instance",
+        "parameterTypes": ["javax.tools.JavaCompiler$CompilationTask"]
+      }
+    ]
+  }
+]
