@@ -14,10 +14,10 @@ cd "$ROOT/build"
 "$GRAALVM_HOME/bin/native-image" --version | tee graalvm-version.txt
 "$GRAALVM_HOME/bin/javac" \
     --add-exports=jdk.compiler/com.sun.tools.javac.launcher=ALL-UNNAMED \
-    -d "$ROOT/build/classes" "$ROOT/src/CremaSourceLauncher.java"
+    -d "$ROOT/build/classes" "$ROOT/src/CremaLauncher.java"
 
 # SourceLauncher and its reachable javac implementation are AOT compiled.
-# Crema loads the bytecode produced by javac at runtime. Preserve the whole
+# Crema loads source-compiled, jar, and class bytecode at runtime. Preserve the whole
 # java.base module so new source classes can link against its APIs and internals.
 "$GRAALVM_HOME/bin/native-image" \
     --add-exports=jdk.compiler/com.sun.tools.javac.launcher=ALL-UNNAMED \
@@ -32,11 +32,11 @@ cd "$ROOT/build"
     '--initialize-at-build-time=com.sun.tools.doclint,com.sun.tools.javac.parser.Tokens$TokenKind,com.sun.tools.javac.parser.Tokens$Token$Tag' \
     --emit build-report \
     "$@" \
-    -o "$ROOT/build/crema-source-launcher" \
-    CremaSourceLauncher \
+    -o "$ROOT/build/crema" \
+    CremaLauncher \
     2>&1 | tee build.log
 
 # Record the JDK used to build this image; its lib/modules is required at
 # runtime for javac to resolve platform classes through the jrt filesystem.
 printf '%s\n' "$GRAALVM_HOME" > graalvm-home.txt
-echo "Built $ROOT/build/crema-source-launcher"
+echo "Built $ROOT/build/crema"

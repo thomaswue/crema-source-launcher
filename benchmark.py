@@ -123,7 +123,7 @@ def main():
     inputs.mkdir(parents=True, exist_ok=True)
     workloads = prepare_workloads(Path(tempfile.mkdtemp(prefix="run-", dir=inputs)))
     launchers = [
-        ("Crema", [str(root / "build" / "crema-source-launcher"), f"-Djava.home={graalvm}"]),
+        ("Crema", [str(root / "build" / "crema"), f"-Djava.home={graalvm}"]),
         ("OpenJDK", [str(jdk / "bin" / "java")]),
     ]
     commands = []
@@ -155,7 +155,7 @@ def main():
         "measured_runs_per_command": args.runs,
         "commands": {name: command for name, command in commands},
         "workloads": {script: description for script, description, _, _ in workloads},
-        "binary_bytes": (root / "build" / "crema-source-launcher").stat().st_size,
+        "binary_bytes": (root / "build" / "crema").stat().st_size,
         "method": "Fresh processes, warm filesystem caches, no shell; wall time through process exit, including compilation and execution.",
     }
     subprocess.run(benchmark, check=True, cwd=root)

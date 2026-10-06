@@ -1,7 +1,8 @@
-# Crema source launcher
+# Crema launcher
 
-A GraalVM native executable with `javac` precompiled. Crema loads and runs the
-bytecode compiled from your Java source at launch time.
+A GraalVM native executable named `crema` that runs Java source files,
+executable jars, and class files. It includes `javac` for source files; Crema
+loads the resulting bytecode and bytecode from jars or class files at runtime.
 
 Preserves all of `java.base` (`-H:Preserve=module=java.base`). Other JDK classes
 can be loaded dynamically. Classes already included in the image may require
@@ -17,8 +18,38 @@ sdk use java 25.4.4+1-graal
 ./run.sh examples/HelloWorld.java
 ```
 
-Prints `Hello, world!`. The executable is **216.2 MiB**; keep `build/`, including
-its companion libraries, and the selected JDK available at runtime.
+Prints `Hello, world!`. Keep `build/`, including its companion libraries, and
+the selected JDK available at runtime.
+
+## Launch files
+
+The first argument is a `.java`, `.jar`, or `.class` file, or a class name whose
+compiled file is on the current directory class path. Remaining arguments are
+passed to its main method.
+
+```sh
+./run.sh examples/HelloWorld.java
+
+# Compile a class file, then launch it directly.
+javac -d build/classes examples/HelloWorld.java
+./run.sh build/classes/HelloWorld.class
+
+# The native executable can also be called directly for jars and class files.
+build/crema build/classes/HelloWorld.class
+
+# A bare class name resolves from the current directory (or its package path).
+(cd examples && ../run.sh FindFiles '*.java' .)
+
+# The jar manifest must name its entry point with Main-Class.
+jar --create --file build/hello.jar --main-class HelloWorld -C build/classes HelloWorld.class
+./run.sh build/hello.jar
+```
+
+For a packaged class file, keep it in its package directory (for example,
+`build/classes/com/example/Main.class`). The launcher uses the containing class
+path root to find sibling classes and resources. Jar manifest `Class-Path`
+entries can name additional jars. Jar and class entry points may use a public
+static main method or Java's compact instance main form.
 
 ## Examples
 
